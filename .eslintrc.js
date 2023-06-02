@@ -10,7 +10,12 @@ module.exports = {
       typescript: {},
     },
   },
+  env: {
+    node: true,
+    es6: true,
+  },
   rules: {
+    'no-console': ['error', { allow: ['log', 'warn', 'error'] }],
     'import/export': 0,
     'import/no-extraneous-dependencies': [2, { devDependencies: ['**/test.ts'] }],
     '@typescript-eslint/indent': [2, 2],

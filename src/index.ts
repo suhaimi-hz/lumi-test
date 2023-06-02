@@ -1,3 +1,5 @@
 // Hello World!
-export * from './server';
+import 'dotenv/config';
+
 export * from './scheduler';
+export * from './server';
