@@ -1,6 +1,5 @@
 import Parser from 'rss-parser';
 import { JSDOM } from 'jsdom';
-import Image from '../image';
 import { ArticleInterface } from '../interface';
 import Article from '../article';
 

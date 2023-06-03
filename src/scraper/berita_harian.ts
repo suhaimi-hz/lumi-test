@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Image from '../image';
 
 import { ArticleInterface } from '../interface';
 import Article from '../article';

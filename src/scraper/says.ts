@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { createHash } from 'crypto';
 import { ArticleInterface } from '../interface';
-import Image from '../image';
+
 import Article from '../article';
 
 puppeteer.use(StealthPlugin());
