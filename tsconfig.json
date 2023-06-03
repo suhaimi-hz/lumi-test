@@ -5,5 +5,5 @@
     "declaration": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "test/**/*.ts"]
+  "include": ["src/**/*.ts", "src/**/*.js", "test/**/*.ts", "src/knexfile.js"]
 }

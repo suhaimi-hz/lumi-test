@@ -7,15 +7,15 @@ import Article from '../article';
 const beritaHarianApi = 'https://www.bharian.com.my/api/articles?sttl=true&page_size=10';
 
 export default class BeritaHarian extends Article {
-  static cacheImage(url) {
-    const image = new Image();
-    return image.fetchAndUpload(url, 'says', 'puppeteer');
-  }
-
   constructor() {
     super(1);
     this.fetchImageWith = 'puppeteer';
     this.publisherSlug = 'bh';
+  }
+
+  cacheImage(url) {
+    const image = new Image();
+    return image.fetchAndUpload(url, this.publisherSlug, this.fetchImageWith);
   }
 
   scrape(): Promise<ArticleInterface[]> {

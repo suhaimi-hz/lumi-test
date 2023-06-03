@@ -16,9 +16,9 @@ export default class Says extends Article {
     this.publisherSlug = 'says';
   }
 
-  static cacheImage(url) {
+  cacheImage(url) {
     const image = new Image();
-    return image.fetchAndUpload(url, 'says', 'axios');
+    return image.fetchAndUpload(url, this.publisherSlug, this.fetchImageWith);
   }
 
   private static async getArticleDetails(browser, feed) {

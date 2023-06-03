@@ -15,9 +15,9 @@ export default class Utusan extends Article {
     this.publisherSlug = 'utusan';
   }
 
-  static cacheImage(url) {
+  cacheImage(url) {
     const image = new Image();
-    return image.fetchAndUpload(url, 'says', 'axios');
+    return image.fetchAndUpload(url, this.publisherSlug, this.fetchImageWith);
   }
 
   scrape(): Promise<ArticleInterface[]> {
