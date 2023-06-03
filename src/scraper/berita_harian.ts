@@ -13,11 +13,6 @@ export default class BeritaHarian extends Article {
     this.publisherSlug = 'bh';
   }
 
-  cacheImage(url) {
-    const image = new Image();
-    return image.fetchAndUpload(url, this.publisherSlug, this.fetchImageWith);
-  }
-
   scrape(): Promise<ArticleInterface[]> {
     const articles: ArticleInterface[] = [];
 
