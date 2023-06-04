@@ -16,25 +16,25 @@ export default class Scheduler {
     console.log('Scraping Berita Harian...');
     const BH = new BeritaHarian();
     await BH.scrape()
-      .then((results) => BH.saveInDb(results))
+      .then((results) => BH.checkAndInsert(results))
       .catch((error) => console.error('Failed to scrape Berita Harian', error));
 
     console.log('Scraping Utusan...');
     const utusan = new Utusan();
     await utusan.scrape()
-      .then((results) => utusan.saveInDb(results))
+      .then((results) => utusan.checkAndInsert(results))
       .catch((error) => console.error('Failed to scrape Utusan', error));
 
     console.log('Scraping SAYS News...');
     const says = new Says({ section: 'news' });
     await says.scrape()
-      .then((results) => says.saveInDb(results))
+      .then((results) => says.checkAndInsert(results))
       .catch((error) => console.error('Failed to scrape SAYS', error));
 
     console.log('Scraping SAYS Seismik...');
     const saysSeismik = new Says({ section: 'seismik', language: 'ms' });
     await saysSeismik.scrape()
-      .then((results) => saysSeismik.saveInDb(results))
+      .then((results) => saysSeismik.checkAndInsert(results))
       .catch((error) => console.error('Failed to scrape SAYS', error));
   }
 

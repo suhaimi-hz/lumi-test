@@ -6,7 +6,8 @@
   "types": "build/index.d.ts",
   "scripts": {
     "prestart": "node ./node_modules/.bin/knex --knexfile ./src/knexfile.js migrate:latest && node ./node_modules/.bin/knex --knexfile ./src/knexfile.js seed:run",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "build": "tsc -p .",
     "lint": "./node_modules/.bin/eslint . --ext .ts",
     "dev": "./node_modules/.bin/nodemon ./src/index.ts"
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
     "@types/node": "^20.2.5",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
@@ -45,7 +47,9 @@
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22",
+    "ts-jest": "^29.1.0",
     "typescript": "^5.1.3"
   }
 }

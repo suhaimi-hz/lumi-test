@@ -10,7 +10,7 @@ export default class Says extends Article {
   section: string;
 
   constructor({ section, language = 'en' }) {
-    super(1);
+    super();
     this.fetchImageWith = 'axios';
     this.publisherSlug = 'says';
     this.language = language; // Primary language
@@ -33,17 +33,28 @@ export default class Says extends Article {
     });
 
     await page.close();
+    return details;
+  }
 
-    details.date = new Date(details.date).toISOString();
-
-    console.log('details', details);
-
-    return { ...feed, ...details };
+  protected ingest(rawData): ArticleInterface[] {
+    const articles: ArticleInterface[] = [];
+    for (let i = 0; i < rawData.length; i += 1) {
+      const article = rawData[i];
+      articles.push({
+        sourceId: createHash('md5').update(article.link).digest('hex'),
+        title: article.title,
+        imageUrl: article.imageUrl,
+        date: new Date(article.date).toISOString(),
+        author: article.creator || '',
+        link: article.link,
+        publisherSlug: this.publisherSlug,
+        language: this.language,
+      });
+    }
+    return articles;
   }
 
   async scrape(): Promise<ArticleInterface[]> {
-    let articles: ArticleInterface[] = [];
-
     const browser = await Puppeteer();
     const page = await browser.newPage();
     await page.goto(`${saysUrl}/my/${this.section}`, { waitUntil: 'domcontentloaded' });
@@ -65,9 +76,6 @@ export default class Says extends Article {
     // visit each article & retrieve details
     for (let i = 0; i < articleLinks.length; i += 1) {
       const article = articleLinks[i];
-      article.publisherSlug = this.publisherSlug;
-      article.sourceId = createHash('md5').update(article.link).digest('hex');
-      article.language = this.language;
       detailsPromise.push(Says.getArticleDetails(browser, article));
     }
 
@@ -75,12 +83,11 @@ export default class Says extends Article {
     return Promise.all(detailsPromise)
       .then((results): ArticleInterface[] => {
         browser.close();
-        articles = results;
-        return articles;
+        return this.ingest(results);
       })
       .catch((error) => {
         console.log('ERROR scaping says: ', error);
-        return articles;
+        return [];
       });
   }
 }

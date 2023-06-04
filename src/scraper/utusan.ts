@@ -9,14 +9,35 @@ const utusanFeed = 'https://www.utusan.com.my/feed/';
 
 export default class Utusan extends Article {
   constructor() {
-    super(1);
+    super();
     this.fetchImageWith = 'axios';
     this.publisherSlug = 'utusan';
     this.language = 'ms'; // Primary language
   }
 
-  scrape(): Promise<ArticleInterface[]> {
+  protected ingest(rawData): ArticleInterface[] {
     const articles: ArticleInterface[] = [];
+    for (let i = 0; i < rawData.length; i += 1) {
+      const article = rawData[i];
+
+      const contentDOM = new JSDOM(article.content);
+      const imageUrl = contentDOM.window.document.querySelector('img').getAttribute('src');
+
+      articles.push({
+        sourceId: String(article.guid),
+        title: article.title,
+        imageUrl,
+        date: article.isoDate,
+        author: article.creator || '',
+        publisherSlug: this.publisherSlug,
+        link: article.link,
+        language: this.language,
+      });
+    }
+    return articles;
+  }
+
+  scrape(): Promise<ArticleInterface[]> {
     const parser: Parser<CustomItem> = new Parser({
       customFields: {
         item: ['author'],
@@ -24,31 +45,11 @@ export default class Utusan extends Article {
     });
 
     return parser.parseURL(utusanFeed)
-      .then((feed) => {
-        for (let i = 0; i < feed.items.length; i += 1) {
-          const article = feed.items[i];
-
-          const contentDOM = new JSDOM(article.content);
-          const imageUrl = contentDOM.window.document.querySelector('img').getAttribute('src');
-
-          articles.push({
-            sourceId: String(article.guid),
-            title: article.title,
-            imageUrl,
-            date: article.isoDate,
-            author: article.creator || '',
-            publisherSlug: this.publisherSlug,
-            link: article.link,
-            language: this.language,
-          });
-        }
-
-        return articles;
-      })
+      .then((feed) => this.ingest(feed.items))
       .catch((error) => {
         console.error('ERROR scaping utusan: ', error);
         // return empty array
-        return articles;
+        return [];
       });
   }
 }
