@@ -35,7 +35,7 @@ export default class BeritaHarian extends Article {
     return axios.get(beritaHarianApi)
       .then((response) => this.ingest(response.data))
       .catch((error) => {
-        console.error('ERROR scraping berita harian: ', error?.response.data);
+        console.error('ERROR scraping berita harian: ', error?.response?.data);
         // return empty array
         return [];
       });
