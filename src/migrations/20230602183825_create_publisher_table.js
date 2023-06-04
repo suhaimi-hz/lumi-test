@@ -7,7 +7,6 @@ exports.up = (knex) => knex.schema
     table.increments('id').primary();
     table.string('slug');
     table.string('name');
-    table.string('language');
   });
 
 /**

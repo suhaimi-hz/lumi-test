@@ -12,6 +12,7 @@ export default class Utusan extends Article {
     super(1);
     this.fetchImageWith = 'axios';
     this.publisherSlug = 'utusan';
+    this.language = 'ms'; // Primary language
   }
 
   scrape(): Promise<ArticleInterface[]> {
@@ -38,6 +39,7 @@ export default class Utusan extends Article {
             author: article.creator || '',
             publisherSlug: this.publisherSlug,
             link: article.link,
+            language: this.language,
           });
         }
 

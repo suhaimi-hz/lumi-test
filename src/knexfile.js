@@ -11,6 +11,10 @@ module.exports = {
   },
   migrations: {
     tableName: 'migrations',
+    directory: path.join(__dirname, 'migrations'),
+  },
+  seeds: {
+    directory: path.join(__dirname, 'seeds'),
   },
   useNullAsDefault: true,
 };

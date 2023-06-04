@@ -9,19 +9,16 @@ exports.seed = async (knex) => {
     {
       slug: 'bh',
       name: 'Berita Harian',
-      language: 'ms',
       id: 1,
     },
     {
       slug: 'utusan',
       name: 'Utusan Malaysia',
-      language: 'ms',
       id: 2,
     },
     {
       slug: 'says',
       name: 'SAYS',
-      language: 'en',
       id: 3,
     },
   ]);

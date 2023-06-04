@@ -25,10 +25,16 @@ export default class Scheduler {
       .then((results) => utusan.saveInDb(results))
       .catch((error) => console.error('Failed to scrape Utusan', error));
 
-    console.log('Scraping SAYS...');
-    const says = new Says();
+    console.log('Scraping SAYS News...');
+    const says = new Says({ section: 'news' });
     await says.scrape()
       .then((results) => says.saveInDb(results))
+      .catch((error) => console.error('Failed to scrape SAYS', error));
+
+    console.log('Scraping SAYS Seismik...');
+    const saysSeismik = new Says({ section: 'seismik', language: 'ms' });
+    await saysSeismik.scrape()
+      .then((results) => saysSeismik.saveInDb(results))
       .catch((error) => console.error('Failed to scrape SAYS', error));
   }
 

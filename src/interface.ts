@@ -7,4 +7,5 @@ export interface ArticleInterface {
   publisherSlug: string;
   link: string;
   sourceId: string;
+  language: 'en' | 'ms'
 }

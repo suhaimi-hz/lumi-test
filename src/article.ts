@@ -2,7 +2,7 @@ import { ArticleInterface } from './interface';
 import db from './db';
 
 import ArticleModel from './models/article';
-import Image from './image';
+import Image from './lib/image';
 
 const Model = ArticleModel.bindKnex(db);
 
@@ -10,6 +10,8 @@ export default class Article {
   publisherSlug: string;
 
   fetchImageWith: 'axios' | 'puppeteer';
+
+  language;
 
   constructor(publisherSlug) {
     this.publisherSlug = publisherSlug;
@@ -30,6 +32,7 @@ export default class Article {
   }
 
   cacheImage(url: string) {
+    if (!url || url === '') return '';
     const images = new Image();
     return images.fetchAndUpload(url, this.publisherSlug, this.fetchImageWith);
   }

@@ -11,6 +11,7 @@ exports.up = (knex) => knex.schema
     table.string('author');
     table.string('link');
     table.string('imageUrl');
+    table.string('language');
     table.datetime('date', { useTz: true });
   });
 

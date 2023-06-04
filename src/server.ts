@@ -39,4 +39,4 @@ app.get('/article', async (req, res) => {
 
 app.use('/', express.static(path.join(__dirname, 'public_html')));
 
-app.listen(process.env.PORT || 3000);
+app.listen(3000);

@@ -10,6 +10,7 @@ export default class BeritaHarian extends Article {
     super(1);
     this.fetchImageWith = 'puppeteer';
     this.publisherSlug = 'bh';
+    this.language = 'ms';
   }
 
   scrape(): Promise<ArticleInterface[]> {
@@ -27,6 +28,7 @@ export default class BeritaHarian extends Article {
             author: article.field_article_author?.name || '',
             publisherSlug: this.publisherSlug,
             link: article.url,
+            language: this.language,
           });
         }
         return articles;

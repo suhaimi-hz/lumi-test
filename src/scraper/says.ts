@@ -7,10 +7,14 @@ import Article from '../article';
 const saysUrl = 'https://says.com';
 
 export default class Says extends Article {
-  constructor() {
+  section: string;
+
+  constructor({ section, language = 'en' }) {
     super(1);
     this.fetchImageWith = 'axios';
     this.publisherSlug = 'says';
+    this.language = language; // Primary language
+    this.section = section;
   }
 
   private static async getArticleDetails(browser, feed) {
@@ -29,6 +33,11 @@ export default class Says extends Article {
     });
 
     await page.close();
+
+    details.date = new Date(details.date).toISOString();
+
+    console.log('details', details);
+
     return { ...feed, ...details };
   }
 
@@ -37,7 +46,7 @@ export default class Says extends Article {
 
     const browser = await Puppeteer();
     const page = await browser.newPage();
-    await page.goto(`${saysUrl}/my`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`${saysUrl}/my/${this.section}`, { waitUntil: 'domcontentloaded' });
     await page.waitForSelector('ul.news-feed-items');
 
     // get list of latest article
@@ -58,6 +67,7 @@ export default class Says extends Article {
       const article = articleLinks[i];
       article.publisherSlug = this.publisherSlug;
       article.sourceId = createHash('md5').update(article.link).digest('hex');
+      article.language = this.language;
       detailsPromise.push(Says.getArticleDetails(browser, article));
     }
 

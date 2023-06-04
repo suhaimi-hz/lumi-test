@@ -1,6 +1,6 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from 'axios';
-import Puppeteer from './lib/puppeteer';
+import Puppeteer from './puppeteer';
 
 const endpoint = `s3.${process.env.S3_REGION}.amazonaws.com`;
 
