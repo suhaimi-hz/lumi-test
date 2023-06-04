@@ -3,7 +3,7 @@ import Utusan from './scraper/utusan';
 import BeritaHarian from './scraper/berita_harian';
 import Says from './scraper/says';
 
-class Scheduler {
+export default class Scheduler {
   intervalTime: number;
 
   interval;
@@ -37,6 +37,3 @@ class Scheduler {
     this.interval = setInterval(Scheduler.scrape, this.intervalTime);
   }
 }
-
-const scheduler = new Scheduler();
-scheduler.run();

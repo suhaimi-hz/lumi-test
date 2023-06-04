@@ -1,11 +1,8 @@
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { createHash } from 'crypto';
 import { ArticleInterface } from '../interface';
+import Puppeteer from '../lib/puppeteer';
 
 import Article from '../article';
-
-puppeteer.use(StealthPlugin());
 
 const saysUrl = 'https://says.com';
 
@@ -38,7 +35,7 @@ export default class Says extends Article {
   async scrape(): Promise<ArticleInterface[]> {
     let articles: ArticleInterface[] = [];
 
-    const browser = await puppeteer.launch({ headless: 'new' });
+    const browser = await Puppeteer();
     const page = await browser.newPage();
     await page.goto(`${saysUrl}/my`, { waitUntil: 'domcontentloaded' });
     await page.waitForSelector('ul.news-feed-items');

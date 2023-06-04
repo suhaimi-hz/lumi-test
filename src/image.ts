@@ -1,9 +1,6 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from 'axios';
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-
-puppeteer.use(StealthPlugin());
+import Puppeteer from './lib/puppeteer';
 
 const endpoint = `s3.${process.env.S3_REGION}.amazonaws.com`;
 
@@ -46,7 +43,7 @@ export default class Image {
   // Fetch image using puppeteer/chrome headless - resource intensive
   // Some website are behind CloudFlare, need to use this
   static async puppeteer(url) {
-    const browser = await puppeteer.launch({ headless: 'new' });
+    const browser = await Puppeteer();
     const page = await browser.newPage();
     const viewSource = await page.goto(url);
     const buffer = await viewSource.buffer();

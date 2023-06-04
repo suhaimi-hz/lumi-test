@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
-    "emitDeclarationOnly": true,
-    "declarationDir": "./build",
-    "declaration": true,
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.js", "test/**/*.ts", "src/knexfile.js"]
+      "rootDir": "./src",
+      "target": "es2021",
+      "module": "commonjs",
+      "types": [
+          "node"
+      ],
+      "outDir": "./build",
+      "esModuleInterop": true,
+      "removeComments": true,
+  }
 }
