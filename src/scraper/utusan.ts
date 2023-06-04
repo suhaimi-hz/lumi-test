@@ -21,7 +21,18 @@ export default class Utusan extends Article {
       const article = rawData[i];
 
       const contentDOM = new JSDOM(article.content);
-      const imageUrl = contentDOM.window.document.querySelector('img').getAttribute('src');
+      let imageUrl = contentDOM.window.document.querySelector('img').getAttribute('src');
+
+      if (!imageUrl) {
+        let imageSet = contentDOM.window.document.querySelector('img').getAttribute('srcset');
+        imageSet = imageSet.split(', ');
+        if (Array.isArray(imageSet) && imageSet.length > 0) {
+          imageSet = imageSet[0].split(' ');
+          if (Array.isArray(imageSet) && imageSet.length > 0) {
+            [imageUrl] = imageSet;
+          }
+        }
+      }
 
       articles.push({
         sourceId: String(article.guid),
