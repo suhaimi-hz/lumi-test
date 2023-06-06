@@ -1,8 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import path from 'path';
 
-import Image from '../src/lib/image';
+import Image from './image';
 
 const mock = new MockAdapter(axios);
 
@@ -11,8 +10,9 @@ describe('Image Lib', () => {
     mock.onGet('http://test.com/image.jpg').reply(200, Buffer.from('mockimage'));
   });
 
-  it('should return image binary', () => {
-    expect(Image.axios('http://test.com/image.jpg')).toBeDefined();
+  it('should return image binary', async () => {
+    await expect(Image.axios('http://test.com/image.jpg')).resolves.toBeDefined();
+    expect(Buffer.isBuffer(await Image.axios('http://test.com/image.jpg'))).toBe(true);
   });
 
   it('should fetch image using axios', () => {

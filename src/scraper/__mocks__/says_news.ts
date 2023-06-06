@@ -1,4 +1,4 @@
-module.exports = [
+export = [
   {
     title: 'Netizens Applaud E-Hailing Driver For Cancelling Ride After 6 Students Barge Into His Car',
     link: 'https://says.com/my/news/netizens-applaud-e-hailing-driver-for-cancelling-ride-after-6-students-barge-into-his-car',

@@ -1,4 +1,4 @@
-module.exports = [
+export = [
   {
     nid: 1110278,
     title: 'Petugas media maut nahas motosikal',

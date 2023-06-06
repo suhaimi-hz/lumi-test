@@ -1,4 +1,4 @@
-module.exports = [
+export = [
   {
     creator: 'Siti Maisarah Binti Sheikh Abdul Rahim',
     title: 'Operasi kesan seorang lagi mangsa lemas Pantai Bagan Lalang disambung esok',

@@ -1,4 +1,4 @@
-module.exports = [
+export = [
   {
     title: '[VIDEO] Gara-Gara Lipas Masuk Kereta, Gadis Ini Tak Fikir Banyak Terus Lompat Ke Depan',
     link: 'https://says.com/my/seismik/gara-gara-lipas-masuk-kereta-gadis-ini-tak-fikir-banyak-terus-lompat-ke-depan',
